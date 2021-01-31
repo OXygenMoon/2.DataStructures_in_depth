@@ -20,35 +20,40 @@ using namespace std;
 // 堆排序
 
 void heapBuild(vector<int> &arr, int root, int length){
-    int lchild = root * 2 + 1;
-    if(lchild < length){
-        int flag = lchild;
-        int rchild = lchild + 1;
-        if(rchild < length){
-            if(arr[lchild] < arr[rchild])
-                flag = rchild;
-        }
-        if(arr[root] < arr[flag]){
-            swap(arr[root], arr[flag]);
-            heapBuild(arr, flag, length);
-        }
+    for(;(root << 1) + 1 <= length; ){
+        int lchild = (root << 1) + 1;
+        int rchild = (root << 1) + 2;
+        int large = root;
+        if(lchild <= length && arr[lchild] > arr[large])    large = lchild;
+        if(rchild <= length && arr[rchild] > arr[large])    large = rchild;
+        if(root != large){
+            swap(arr[root], arr[large]);
+            root = large;
+        }else
+            break;
     }
-    return;
 }
 
-void heapSort(vector<int> &arr, int length){
+
+void MaxheapBuild(vector<int> &arr, int length){
     for(int i = length / 2; i >= 0; -- i){
-        heapBuild(arr, i, length); 
+        heapBuild(arr, i, length);
     }
-    for(int j = length - 1; j > 0; -- j){
+}
+
+
+void heapSort(vector<int> &arr, int length){
+    MaxheapBuild(arr, length);
+    for(int j = length; j >= 0; -- j){
         swap(arr[0], arr[j]);
-        heapBuild(arr, 0, j);
+        length --;
+        heapBuild(arr, 0, length);
     }
     return;
 }
 
 int main(){
-    vector<int> arr{1,3,2,5,4,7,6,8,9};
+    vector<int> arr{5,2,3,1};
     heapSort(arr, arr.size() - 1);
     for(int n : arr)
         cout << n << endl;
