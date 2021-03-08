@@ -58,4 +58,4 @@ int main(){
     for(int n : arr)
         cout << n << endl;
     return 0;
-}
+ }
