@@ -21,10 +21,10 @@ typedef struct TrieTree{
     char data;
     TrieTree* children[26];
     bool isEndingChar;
-    TrieTree(char ch = '/') : data(ch), isEndingChar(false) {}
+    TrieTree(char ch = '/') : data(ch){ isEndingChar = false; for(auto& c : children) c = nullptr; }
 }TT;
 
-TT* root;
+TT* root = new TT();
 
 
 
